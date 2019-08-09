@@ -6,7 +6,7 @@
 //
 
 import Vapor
-import SwiftSMTP
+//import SwiftSMTP
 
 final class EmailSender {
     enum Content {
@@ -14,15 +14,15 @@ final class EmailSender {
         case accountActive(emailTo: String, url: String)
         case changePwd(emailTo: String, code: String)
 
-        var emailTo: Mail.User {
-            switch self {
-            case let .register(emailTo, _),
-                 let .accountActive(emailTo,_),
-                 let .changePwd(emailTo, _):
-
-                return Mail.User(name: "EMgamean", email: emailTo)
-            }
-        }
+//        var emailTo: Mail.User {
+//            switch self {
+//            case let .register(emailTo, _),
+//                 let .accountActive(emailTo,_),
+//                 let .changePwd(emailTo, _):
+//
+//                return Mail.User(name: "EMgamean", email: emailTo)
+//            }
+//        }
 
         var subject: String {
             switch self {
@@ -49,15 +49,15 @@ final class EmailSender {
 
     static func sendEmail(_ req: Request, content: EmailSender.Content) throws -> Future<Void> {
         let promise = req.eventLoop.newPromise(Void.self)
-        let emailUser = Mail.User(name: "再书", email: "13576051334@163.com")
-        let emailTo = content.emailTo
-        let mail = Mail(from: emailUser, to: [emailTo], subject: content.subject, text: content.text)
-
-        let smtp = SMTP(hostname: "smtp.163.com", email: "13576051334@163.com", password: "laijihua12345", port: 465, tlsMode: .requireTLS, domainName:"book.twicebook.top")
-        DispatchQueue.global().async {
-            smtp.send(mail)
-            promise.succeed()
-        }
+//        let emailUser = Mail.User(name: "SwiftClub", email: "13576051334@163.com")
+//        let emailTo = content.emailTo
+//        let mail = Mail(from: emailUser, to: [emailTo], subject: content.subject, text: content.text)
+//
+//        let smtp = SMTP(hostname: "smtp.163.com", email: "13576051334@163.com", password: "laijihua12345", port: 465, tlsMode: .requireTLS, domainName:"book.twicebook.top")
+//        DispatchQueue.global().async {
+//            smtp.send(mail)
+//            promise.succeed()
+//        }
         return promise.futureResult
     }
 }

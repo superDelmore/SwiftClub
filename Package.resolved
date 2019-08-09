@@ -11,33 +11,6 @@
         }
       },
       {
-        "package": "Cryptor",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueCryptor.git",
-        "state": {
-          "branch": null,
-          "revision": "6f79b4ea0a7ef8acb08ba3f3e23da32e83acaca3",
-          "version": "1.0.28"
-        }
-      },
-      {
-        "package": "Socket",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
-        "state": {
-          "branch": null,
-          "revision": "ccc671b022bc60e5fffcb2aa15f499c6331bfd18",
-          "version": "1.0.46"
-        }
-      },
-      {
-        "package": "SSLService",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
-        "state": {
-          "branch": null,
-          "revision": "0127cd4156bb0ba702894f2509199e4b65ca1db5",
-          "version": "1.0.46"
-        }
-      },
-      {
         "package": "cmark",
         "repositoryURL": "https://github.com/brokenhandsio/cmark-gfm.git",
         "state": {
@@ -134,15 +107,6 @@
           "branch": null,
           "revision": "d9a43ac27b587a165b261bbcb5fed58b2fcb25bd",
           "version": "2.1.0"
-        }
-      },
-      {
-        "package": "LoggerAPI",
-        "repositoryURL": "https://github.com/IBM-Swift/LoggerAPI.git",
-        "state": {
-          "branch": null,
-          "revision": "e29073bb7cecf3673e56bcb16180e8fd0cb091f6",
-          "version": "1.8.1"
         }
       },
       {
@@ -260,15 +224,6 @@
           "branch": null,
           "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
-        }
-      },
-      {
-        "package": "SwiftSMTP",
-        "repositoryURL": "https://github.com/IBM-Swift/Swift-SMTP.git",
-        "state": {
-          "branch": null,
-          "revision": "23360cff5fcb92fb37041f5dd1ef16d7b8fe5ff0",
-          "version": "5.1.1"
         }
       },
       {

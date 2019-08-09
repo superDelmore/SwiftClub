@@ -8,7 +8,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-postgresql.git", from: "1.0.0"),
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.1"),
         .package(url: "https://github.com/vapor-community/pagination.git", from: "1.0.7"),
-        .package(url: "https://github.com/IBM-Swift/Swift-SMTP.git", .upToNextMinor(from: "5.1.0")),
+        // .package(url: "https://github.com/IBM-Swift/Swift-SMTP.git", from: "5.1.0"),
         .package(url: "https://github.com/vapor/redis.git", from: "3.0.0"), // redis
 //        .package(url: "https://github.com/vapor-community/jobs-redis-driver.git", from: "0.2.0"), // job
         .package(url: "https://github.com/vapor-community/leaf-markdown.git", .upToNextMajor(from: "2.0.0"))
@@ -19,7 +19,7 @@ let package = Package(
         .target(name: "App", dependencies: [
             "Vapor",
             "Authentication",
-            "SwiftSMTP",
+        //     "SwiftSMTP",
             "Pagination",
             "FluentPostgreSQL",
             "Redis",
