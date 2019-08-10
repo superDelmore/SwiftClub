@@ -9,6 +9,12 @@ public func routes(_ router:Router, _ container:Container) throws {
         return "welcome"
     }
 
+    router.get("/") { req in
+        return try req.view().render("index", ["hello": "world"])
+    }
+
+
+
     let group = router.grouped("api")
     let authRouteController = AuthenticationRouteController()
     try group.register(collection: authRouteController)

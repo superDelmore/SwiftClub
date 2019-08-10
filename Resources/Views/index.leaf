@@ -1,0 +1,4 @@
+#set("body") {
+<p>Welcome to SwiftClub!</p> #(hello)
+}
+#embed("template")

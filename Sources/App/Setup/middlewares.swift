@@ -16,7 +16,7 @@ public func middlewares(config: inout MiddlewareConfig, env: inout Environment) 
         allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent, .accessControlAllowOrigin]
     )
     config.use(CORSMiddleware(configuration: corsConfiguration))
-
+    config.use(FileMiddleware.self) // Serves files from `Public/` directory
     config.use(APIErrorMiddleware(environment: env, specializations: [
         ModelNotFound()
     ]))

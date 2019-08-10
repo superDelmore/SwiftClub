@@ -19,11 +19,13 @@ public func configure(
         return router
     }
 
+    /// 模板配置
     try services.register(LeafProvider())
     var tags = LeafTagConfig.default()
     tags.use(Markdown(), as: "markdown")
     services.register(tags)
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
+
 
     let serverConfig = NIOServerConfig.default(hostname: "0.0.0.0", port: 8977)
     services.register(serverConfig)
