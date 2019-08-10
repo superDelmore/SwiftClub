@@ -1,7 +1,6 @@
-FROM swift
+FROM vapor/swift:5.0
 WORKDIR /app
 ADD . ./
-RUN apt-get install openssl libssl-dev libz-dev
 RUN swift package clean
 RUN swift build -c release
 RUN mkdir /app/bin
