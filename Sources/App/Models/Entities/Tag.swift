@@ -8,7 +8,7 @@
 import Vapor
 import FluentPostgreSQL
 
-struct Tag:Content {
+struct Tag: Content {
     var id: Int?
     var name: String
     var remarks: String? // 节点描述

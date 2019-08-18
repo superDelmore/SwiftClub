@@ -12,11 +12,9 @@ import FluentPostgreSQL
 import Pagination
 import Leaf
 
-
 final class TopicRouteController: RouteCollection {
-
     let notifyService = NotifyService()
-
+    
     func boot(router: Router) throws {
         let group = router.grouped("topic")
         let guardAuthMiddleware = User.guardAuthMiddleware()
