@@ -28,8 +28,6 @@ final class BookletRouteController: RouteCollection {
 extension BookletRouteController {
 
     func catalogDetail(request: Request) throws -> Future<Response> {
-        
-
         return try request.makeJson()
     }
 
@@ -54,5 +52,7 @@ extension BookletRouteController {
             return try booklet.create(on:request).makeJson(on: request)
         }
     }
+
+
 
 }
