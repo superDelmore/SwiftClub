@@ -40,26 +40,53 @@ final class BookletRouteController: RouteCollection {
 
         // 目录删除
         tokenAuthGroup.post("catalog", "delete", use: catalogDelete)
-
     }
 }
 
 extension BookletRouteController {
 
     func catalogAdd(request: Request, container: CatalogReqContainer) throws -> Future<Response> {
-        return try request.makeJson()
+        let catlog = Catalog(title: container.title, pid: container.pid, path: container.path, topicId: container.topicId, level: container.level, order: container.order)
+        return try menuService
+            .saveBy(menu: catlog, connection: request)
+            .makeJson(on: request)
     }
 
     func catalogDelete(request: Request) throws -> Future<Response> {
-        return try request.makeJson()
+        return try request
+            .content
+            .decode(DeleteIDContainer<Catalog>.self)
+            .flatMap { deleteId in
+                return try Catalog
+                    .find(deleteId.id, on: request)
+                    .unwrap(or: ApiError(code: .modelNotExist))
+                    .flatMap { return
+                        self.menuService.removeBy(menu: $0, connection: request)
+                    }
+                    .makeJson(request: request)
+            }
     }
 
     func catalogUpdate(request: Request, container: CatalogReqContainer) throws -> Future<Response> {
-        return try request.makeJson()
+        return Catalog.find(container.id!, on: request)
+            .unwrap(or: ApiError.init(code: .modelNotExist))
+            .flatMap { catalog in
+                var catalog = catalog
+                catalog.title = container.title
+                catalog.level = container.level
+                catalog.path = container.path
+                catalog.order = container.order
+                catalog.pid = container.pid
+                return try self.menuService
+                    .saveBy(menu: catalog, connection: request)
+                    .makeJson(on: request)
+        }
     }
 
     func catalogDetail(request: Request) throws -> Future<Response> {
-        return try request.makeJson()
+        return try self.menuService
+            .findMenuTree(connection: request)
+            .makeJson(on: request)
     }
 
     /// 获取小册列表
@@ -85,13 +112,27 @@ extension BookletRouteController {
     }
 
     func bookletUpdate(request: Request, container: BookletReqContainer) throws -> Future<Response> {
-         return try request.makeJson()
+         return Booklet
+            .find(container.id!, on: request)
+            .unwrap(or: ApiError(code: .modelNotExist))
+            .flatMap { booklet in
+                var booklet = booklet
+                booklet.name = container.name
+                booklet.desc = container.desc
+                return try booklet.update(on: request).makeJson(on: request)
+        }
     }
 
     func bookletDelete(request: Request) throws -> Future<Response> {
-        return try request.makeJson()
+        return try request
+            .content
+            .decode(DeleteIDContainer<Booklet>.self)
+            .flatMap { deleteId in
+                return try Booklet
+                    .find(deleteId.id, on: request)
+                    .unwrap(or: ApiError(code: .modelNotExist))
+                    .flatMap { return $0.delete(on: request)}
+                    .makeJson(request: request)
+        }
     }
-
-
-
 }

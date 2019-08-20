@@ -48,8 +48,8 @@ final class MenuService {
     }
 
     // 删除菜单
-    func removeBy(menu: Catalog, connection: Request) {
-        _ = menu.delete(on: connection)
+    func removeBy(menu: Catalog, connection: Request) -> EventLoopFuture<Void> {
+        return menu.delete(on: connection)
     }
 
     func findMenuTree(connection: Request) -> EventLoopFuture<[CatalogTree]> {

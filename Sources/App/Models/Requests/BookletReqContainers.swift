@@ -8,6 +8,7 @@
 import Vapor
 
 struct BookletReqContainer: Content {
+    var id: Int?
     var name: String
     var desc: String?
     var userId: User.ID
