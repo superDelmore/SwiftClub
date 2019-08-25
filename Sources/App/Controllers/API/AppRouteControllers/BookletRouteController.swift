@@ -34,10 +34,10 @@ final class BookletRouteController: RouteCollection {
 
 
         // 目录更新
-        tokenAuthGroup.post(CatalogReqContainer.self, at: "catalog/update", use: catalogUpdate)
+        tokenAuthGroup.post(CatalogReqContainer.self, at: "catalog", "update", use: catalogUpdate)
 
         // 目录添加
-        tokenAuthGroup.post(CatalogReqContainer.self, at: "catalog/add", use: catalogAdd)
+        tokenAuthGroup.post(CatalogReqContainer.self, at: "catalog", "add", use: catalogAdd)
 
         // 目录删除
         tokenAuthGroup.post("catalog", "delete", use: catalogDelete)
