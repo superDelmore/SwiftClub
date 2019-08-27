@@ -119,6 +119,7 @@ extension TopicRouteController {
         } else { // 全部数据
             return try Topic
                 .query(on: request)
+                .filter(\Topic.subjectId != 5) // 去除小册
                 .sort(\Topic.createdAt, .descending)
                 .range(request.pageRange) // 获取分页数据
                 .join(\User.id, to: \Topic.userId)
