@@ -64,11 +64,16 @@ final class MenuService {
 
     func findMenuTreeAt(catalogId: Catalog.ID, connect: Request) -> EventLoopFuture<[CatalogTree]> {
         return Catalog
-            .find(catalogId, on: connect)
-            .unwrap(or: ApiError(code: .modelNotExist))
-            .map { catalog in
-            let tree = CatalogTree(catalog: catalog)
-            return self.getMenuTree(menusRoot: [tree])
+            .query(on: connect)
+            .all()
+            .map { menus in
+                let tree = menus.filter({ (catalog) -> Bool in
+                    guard let ids = catalog.path?.split(separator: ","), let first = ids.first else {
+                        return false
+                    }
+                    return String(first) == "\(catalogId)"
+                }).compactMap { return CatalogTree(catalog: $0)}
+            return self.getMenuTree(menusRoot: tree)
         }
     }
 
