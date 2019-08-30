@@ -68,18 +68,18 @@ final class MenuService {
             .all()
             .map { menus in
                 let tree = menus.filter({ (catalog) -> Bool in
-                    let ids = catalog.path?.split(separator: ",").map { String($0) }
-                    return ids?.contains("\(catalogId)") ?? false
-                }).compactMap { return CatalogTree(catalog: $0)}
-            return self.getMenuTree(menusRoot: tree)
+                    let ids = catalog.path?.split(separator: ",").compactMap { Int($0) } ?? []
+                    return ids.contains(catalogId)
+                }).map { return CatalogTree(catalog: $0)}
+            return self.getMenuTree(menusRoot: tree, pid: catalogId)
         }
     }
 
 
     /// 获取组装好的菜单, 以树的形式显示
-    func getMenuTree(menusRoot: [CatalogTree]) -> [CatalogTree] {
+    func getMenuTree(menusRoot: [CatalogTree], pid: Catalog.ID = 0) -> [CatalogTree] {
          return menusRoot
-            .filter{$0.pid == 0}
+            .filter{$0.pid == pid}
             .compactMap { menu in
                 var menu = menu
                 menu.child = self.getChildTree(menuId: menu.id!, menusRoot: menusRoot)
