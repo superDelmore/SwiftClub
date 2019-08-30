@@ -62,13 +62,13 @@ final class MenuService {
             }
     }
 
-    func findMenuTreeAt(catalogId: Catalog.ID, connect: Request) -> EventLoopFuture<CatalogTree> {
+    func findMenuTreeAt(catalogId: Catalog.ID, connect: Request) -> EventLoopFuture<[CatalogTree]> {
         return Catalog
             .find(catalogId, on: connect)
             .unwrap(or: ApiError(code: .modelNotExist))
             .map { catalog in
             let tree = CatalogTree(catalog: catalog)
-            return self.getMenuTree(menusRoot: [tree])[0]
+            return self.getMenuTree(menusRoot: [tree])
         }
     }
 
