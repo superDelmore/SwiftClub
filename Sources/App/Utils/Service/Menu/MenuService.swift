@@ -71,7 +71,7 @@ final class MenuService {
                     guard let ids = catalog.path?.split(separator: ",") else {
                         return false
                     }
-                    return ids.compactMap{String($0)}.contains("\(catalogId)")
+                    return ids.compactMap{String($0)}.filter{$0 == "\(catalogId)"}.count > 0
                 }).compactMap { return CatalogTree(catalog: $0)}
             return self.getMenuTree(menusRoot: tree)
         }
