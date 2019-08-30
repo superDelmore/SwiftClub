@@ -23,6 +23,8 @@ final class BookletRouteController: RouteCollection {
         // 小册目录树
         group.get("catalog", use: catalogDetail)
 
+        group.get("catalog", "at", use: catalogSubs)
+
         // 小册添加
         tokenAuthGroup.post(BookletReqContainer.self, at: "add",  use: bookletAdd)
 
@@ -31,7 +33,6 @@ final class BookletRouteController: RouteCollection {
 
         // 小册删除
         tokenAuthGroup.post("delete", use: bookletDelete)
-
 
         // 目录更新
         tokenAuthGroup.post(CatalogReqContainer.self, at: "catalog", "update", use: catalogUpdate)
@@ -82,6 +83,13 @@ extension BookletRouteController {
                     .saveBy(menu: catalog, connection: request)
                     .makeJson(on: request)
         }
+    }
+
+    func catalogSubs(request: Request) throws -> Future<Response> {
+        let catalogId = try request.query.get(Int.self, at: "catalogId")
+        return try self.menuService
+            .findMenuTreeAt(catalogId: catalogId, connect: request)
+            .makeJson(on: request)
     }
 
     func catalogDetail(request: Request) throws -> Future<Response> {
