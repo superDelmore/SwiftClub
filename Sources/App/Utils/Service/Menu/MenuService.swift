@@ -68,10 +68,8 @@ final class MenuService {
             .all()
             .map { menus in
                 let tree = menus.filter({ (catalog) -> Bool in
-                    guard let ids = catalog.path?.split(separator: ",") else {
-                        return false
-                    }
-                    return ids.compactMap{String($0)}.filter{$0 == "\(catalogId)"}.count > 0
+                    let ids = catalog.path?.split(separator: ",").map { String($0) }
+                    return ids?.contains("\(catalogId)") ?? false
                 }).compactMap { return CatalogTree(catalog: $0)}
             return self.getMenuTree(menusRoot: tree)
         }
