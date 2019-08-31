@@ -16,6 +16,13 @@ struct TopicReqContainer: Content {
     var tags:[Tag.ID] // tag 的 string
 }
 
+struct TopicUpdateReqContainer: Content {
+    var id: Topic.ID // 更新的时候必传
+    var title: String
+    var content: String
+}
+
+
 struct TagReqContainer: Content {
     var name: String
     var remarks: String?

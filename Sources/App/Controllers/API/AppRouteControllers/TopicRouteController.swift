@@ -35,6 +35,9 @@ final class TopicRouteController: RouteCollection {
 
         // 添加文章
         tokenAuthGroup.post(TopicReqContainer.self, at: "add", use: topicAdd)
+
+        //
+        tokenAuthGroup.post(TopicUpdateReqContainer.self, at: "update", use: topicUpdate)
         // 板块添加
         tokenAuthGroup.post(Subject.self, at: "subject", "add", use: topicSubjectAdd)
         // 添加tag
@@ -141,6 +144,18 @@ extension TopicRouteController {
         let _ = try request.requireAuthenticated(User.self) // 获取到当前用户
         let tag = Tag(name: container.name, remarks: container.remarks)
         return try tag.create(on: request).makeJson(on: request)
+    }
+
+    func topicUpdate(request: Request, container: TopicUpdateReqContainer) throws -> Future<Response> {
+        let _ = try request.requireAuthenticated(User.self) // 获取到当前用户
+        return try Topic.find(container.id, on: request)
+            .unwrap(or: ApiError(code: .modelNotExist))
+            .flatMap { topic -> EventLoopFuture<Topic> in
+                var nTopic = topic
+                nTopic.title = container.title
+                nTopic.content = container.content
+                return nTopic.update(on: request)
+            }.makeJson(on: request)
     }
 
     func topicAdd(request: Request, container: TopicReqContainer) throws -> Future<Response> {
