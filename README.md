@@ -52,6 +52,12 @@ Vapor3
 
 https://swiftclub.loveli.site
 
+## 功能：
+
+* [x] 用户注册登录
+* [x] 文章发布，列表，详情
+* [x] 小册(wiki)的增删改查
+
 ## 项目博文
 
 [项目系列博文](https://xiaozhuanlan.com/topic/7869023451)
